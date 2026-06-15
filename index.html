@@ -753,6 +753,35 @@ function esc(s) {
   if (!s) return '';
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
+
+/* ── CONFIGURAÇÃO API KEY ── */
+function openCfg() {
+  const k = localStorage.getItem('trousseau_claude_key') || '';
+  if (k) { document.getElementById('cfg-key').value = k; }
+  document.getElementById('cfg-overlay').style.display = 'flex';
+}
+function closeCfg() {
+  document.getElementById('cfg-overlay').style.display = 'none';
+}
+function saveCfg() {
+  const key = document.getElementById('cfg-key').value.trim();
+  const gid = document.getElementById('cfg-gmail').value.trim();
+  if (!key || !key.startsWith('sk-ant-')) {
+    alert('Chave inválida. Deve começar com sk-ant-...');
+    return;
+  }
+  localStorage.setItem('trousseau_claude_key', key);
+  if (gid) localStorage.setItem('trousseau_gmail_client', gid);
+  closeCfg();
+  setStatus('✅ Chave salva! Agora conecte o Gmail.', 'ok');
+}
+window.addEventListener('load', function() {
+  const key = localStorage.getItem('trousseau_claude_key');
+  if (!key) {
+    setStatus('⚙️ Configure sua API Key: clique no ícone de engrenagem no canto superior direito.', 'warn');
+  }
+});
+
 </script>
 
 <div class="cfg-overlay" id="cfg-overlay" style="display:none">
@@ -768,6 +797,28 @@ function esc(s) {
       <button class="btn btnp" onclick="saveCfg()">Salvar e continuar</button>
     </div>
     <div class="cfg-note">🔒 As chaves ficam salvas no <strong>localStorage</strong> do seu navegador. Para redefinir, clique no ícone ⚙️ no topo do dashboard.</div>
+  </div>
+</div>
+
+
+<div id="cfg-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9999;display:none;align-items:center;justify-content:center">
+  <div style="background:var(--surface);border-radius:12px;border:1px solid var(--border);padding:28px 32px;width:440px;max-width:95vw">
+    <div style="font-size:16px;font-weight:500;margin-bottom:6px">⚙️ Configuração</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:20px;line-height:1.5">Insira sua chave da API Anthropic. Ela fica salva apenas no seu navegador.</div>
+    <label style="font-size:12px;font-weight:500;color:var(--t2);margin-bottom:6px;display:block">Anthropic API Key</label>
+    <input id="cfg-key" type="password" placeholder="sk-ant-api03-..." autocomplete="off"
+      style="width:100%;font-size:12px;padding:9px 12px;border:1px solid var(--border2);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;margin-bottom:14px;outline:none;display:block" />
+    <label style="font-size:12px;font-weight:500;color:var(--t2);margin-bottom:6px;display:block">Gmail OAuth Client ID</label>
+    <input id="cfg-gmail" type="text"
+      value="1098352228172-p6sb1411m2qgnoo0dhkbrmfupbqpkthi.apps.googleusercontent.com"
+      style="width:100%;font-size:11px;padding:9px 12px;border:1px solid var(--border2);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;margin-bottom:16px;outline:none;display:block" />
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button onclick="closeCfg()" style="font-size:12px;padding:6px 14px;border:1px solid var(--border2);border-radius:8px;background:transparent;color:var(--t2);cursor:pointer;font-family:inherit">Cancelar</button>
+      <button onclick="saveCfg()" style="font-size:12px;padding:6px 14px;border:none;border-radius:8px;background:var(--text);color:var(--surface);cursor:pointer;font-family:inherit;font-weight:500">Salvar</button>
+    </div>
+    <div style="font-size:11px;color:var(--t3);margin-top:14px;padding:8px 10px;background:var(--s2);border-radius:8px;line-height:1.5">
+      🔒 As chaves ficam salvas apenas no seu navegador (localStorage). Nunca são enviadas para outros servidores.
+    </div>
   </div>
 </div>
 
