@@ -361,7 +361,7 @@ async function syncAll() {
     const threads = await fetchThreads();
     document.getElementById('ktot').textContent = threads.length;
     setStatus('📧 ' + threads.length + ' threads. Carregando detalhes...', 'info');
-    const details = await fetchDetails(threads.slice(0, 25));
+    const details = await fetchDetails(threads.slice(0, 15));
     setStatus('🤖 IA analisando emails... (pode levar 20–30s)', 'ai');
     const result = await analyzeWithClaude(details, claudeKey);
     renderAll(result);
@@ -420,7 +420,7 @@ async function analyzeWithClaude(emails, apiKey) {
     return 'EMAIL ' + (i+1) + ':\n  ID: ' + e.id + '\n  Assunto: ' + e.subject + '\n  De: ' + e.from + '\n  Para: ' + e.to + '\n  CC: ' + e.cc + '\n  Data: ' + e.date + '\n  Msgs: ' + e.msgCount + '\n  Snippet último: ' + e.snippet + '\n  Todos remetentes: ' + e.allFrom;
   }).join('\n---\n');
 
-  const prompt = 'Você é o assistente de emails do Daniel Ozaki, Gerente de Logística da Trousseau. Email: daniel.ozaki@trousseau.com.br. Colegas: Diego Santos, Emerson Pinheiro, Fernanda Cavalcante, Lucivaldo, João Saturnino, Tayama Bueno, Gabriel Moura. Transportadoras: Movvi, Braspress, Jamef, Total, Correios.\n\nCLASSIFICAÇÃO:\n- urgente: email DIRETO para Daniel sem resposta, ou chefia cobrou, ou URGENTE no assunto\n- atencao: ops logística não direto para Daniel mas impacta operação; @daniel.ozaki mencionado no texto\n- resolvido: colega já deu resposta conclusiva; Daniel já respondeu e aguarda\n- informativo: newsletter, RH, notificações automáticas\n\nRETORNE SOMENTE JSON válido, sem markdown:\n{"kpis":{"urgente":0,"atencao":0,"resolvido":0,"informativo":0},"emails":[{"id":"","from_short":"","subject_short":"","category":"urgente|atencao|resolvido|informativo","priority":"alta|media|baixa","date_short":"","tags":[],"resumo":"","ultima_mensagem":"","ultimo_remetente":"","msg_count":0,"acao_sugerida":"","rascunho":null,"rascunho_para":null}],"ocorrencias":{"urgente":[],"atencao":[]},"agenda":[{"titulo":"","meta":"","tipo":"reuniao|entrega|visita|prazo|evento","urgencia":"alta|media|baixa"}],"grafico":{"labels":[],"urgente":[],"atencao":[],"mencionado":[],"resolvido":[]}}\n\nEMAILS:\n' + emailsText;
+  const prompt = 'Você é o assistente de emails do Daniel Ozaki, Gerente de Logística da Trousseau. Email: daniel.ozaki@trousseau.com.br. Colegas: Diego Santos, Emerson Pinheiro, Fernanda Cavalcante, Lucivaldo, João Saturnino, Tayama Bueno, Gabriel Moura. Transportadoras: Movvi, Braspress, Jamef, Total, Correios.\n\nCLASSIFICAÇÃO:\n- urgente: email DIRETO para Daniel sem resposta, ou chefia cobrou, ou URGENTE no assunto\n- atencao: ops logística não direto para Daniel mas impacta operação; @daniel.ozaki mencionado no texto\n- resolvido: colega já deu resposta conclusiva; Daniel já respondeu e aguarda\n- informativo: newsletter, RH, notificações automáticas\n\nIMPORTANTE: retorne JSON COMPACTO sem espaços desnecessários. Limite cada campo de texto a no máximo 80 caracteres. RETORNE SOMENTE JSON válido, sem markdown:\n{"kpis":{"urgente":0,"atencao":0,"resolvido":0,"informativo":0},"emails":[{"id":"","from_short":"","subject_short":"","category":"urgente|atencao|resolvido|informativo","priority":"alta|media|baixa","date_short":"","tags":[],"resumo":"","ultima_mensagem":"","ultimo_remetente":"","msg_count":0,"acao_sugerida":"","rascunho":null,"rascunho_para":null}],"ocorrencias":{"urgente":[],"atencao":[]},"agenda":[{"titulo":"","meta":"","tipo":"reuniao|entrega|visita|prazo|evento","urgencia":"alta|media|baixa"}],"grafico":{"labels":[],"urgente":[],"atencao":[],"mencionado":[],"resolvido":[]}}\n\nEMAILS:\n' + emailsText;
 
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -432,7 +432,7 @@ async function analyzeWithClaude(emails, apiKey) {
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
-      max_tokens: 4000,
+      max_tokens: 8000,
       messages: [{ role: 'user', content: prompt }]
     })
   });
