@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 :root{
-  --bg:#F4F5F7;--surface:#fff;--s2:#F8F9FA;--s3:#F0F2F5;
+  --bg:#F4F5F7;--surface:#fff;--s2:#F8F9FA;
   --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.14);
   --text:#1A1A2E;--t2:#5A6072;--t3:#9AA0AD;
   --red:#E24B4A;--rbg:#FDF1F1;--rtx:#8B2020;
@@ -19,7 +19,7 @@
   --r:8px;--rl:12px;
 }
 @media(prefers-color-scheme:dark){
-  :root{--bg:#0F1117;--surface:#1C1E26;--s2:#252830;--s3:#1A1C24;
+  :root{--bg:#0F1117;--surface:#1C1E26;--s2:#252830;
   --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
   --text:#E8EAF0;--t2:#9AA0AD;--t3:#5A6072;
   --rbg:#2A1515;--rtx:#F09090;--abg:#2A1E0A;--atx:#F5C07A;
@@ -27,8 +27,6 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
-
-/* TOPBAR */
 .top{background:var(--surface);border-bottom:1px solid var(--border);padding:9px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
 .tl{display:flex;align-items:center;gap:12px}
 .tlogo{font-size:11px;font-weight:600;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
@@ -38,93 +36,66 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tdate{font-size:11px;color:var(--t3)}
 .upill{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2);padding:4px 10px;background:var(--s2);border:1px solid var(--border);border-radius:99px}
 .uav{width:22px;height:22px;border-radius:50%;background:var(--bbg);color:var(--btx);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.abtn{display:flex;align-items:center;gap:5px;font-size:12px;padding:6px 14px;border:none;border-radius:var(--r);background:var(--blu);color:#fff;cursor:pointer;font-family:inherit;font-weight:500}
-.abtn:hover{opacity:.88}
-.sbtn{display:flex;align-items:center;gap:5px;font-size:12px;padding:6px 14px;border:1px solid var(--border2);border-radius:var(--r);background:transparent;color:var(--t2);cursor:pointer;font-family:inherit;display:none}
-.sbtn:hover{background:var(--s2)}
-.sbtn:disabled{opacity:.5;cursor:not-allowed}
+.ibtn{display:flex;align-items:center;gap:5px;font-size:12px;padding:6px 14px;border:1px solid var(--border2);border-radius:var(--r);background:transparent;color:var(--t2);cursor:pointer;font-family:inherit}
+.ibtn:hover{background:var(--s2)}
+.ibtn.blue{background:var(--blu);color:#fff;border-color:transparent}
+.ibtn.blue:hover{opacity:.88}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spinning{animation:spin .7s linear infinite}
-
-/* STATUS */
-.sbar{padding:6px 20px;font-size:11px;display:flex;align-items:center;gap:8px;transition:all .3s}
+.sbar{padding:7px 20px;font-size:12px;display:flex;align-items:center;gap:8px}
 .sbar.ok{background:var(--gbg);color:var(--gtx)}
 .sbar.warn{background:var(--abg);color:var(--atx)}
 .sbar.info{background:var(--bbg);color:var(--btx)}
 .sbar.ai{background:var(--pbg);color:var(--ptx)}
 .sbar.err{background:var(--rbg);color:var(--rtx)}
-
-/* MAIN */
 .main{padding:14px 20px;max-width:1500px;margin:0 auto}
-
-/* KPI */
 .krow{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px}
 .kc{background:var(--surface);border-radius:var(--r);padding:12px 14px;border:1px solid var(--border);border-top:3px solid}
 .kv{font-size:26px;font-weight:500;line-height:1;margin-bottom:4px}
 .kl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
 .ks{font-size:10px;margin-top:3px}
-.kr{border-top-color:var(--red)}.kr .kv{color:var(--red)}.kr .ks{color:var(--red)}
-.ka{border-top-color:var(--amb)}.ka .kv{color:var(--amb)}.ka .ks{color:var(--amb)}
-.kb{border-top-color:var(--blu)}.kb .kv{color:var(--blu)}
-.kg{border-top-color:var(--grn)}.kg .kv{color:var(--grn)}
-.kn{border-top-color:var(--border2)}
-.kp{border-top-color:var(--pur)}.kp .kv{color:var(--pur)}
-
-/* MID */
+.kR{border-top-color:var(--red)}.kR .kv{color:var(--red)}.kR .ks{color:var(--red)}
+.kA{border-top-color:var(--amb)}.kA .kv{color:var(--amb)}
+.kB{border-top-color:var(--blu)}.kB .kv{color:var(--blu)}
+.kG{border-top-color:var(--grn)}.kG .kv{color:var(--grn)}
+.kN{border-top-color:var(--border2)}
 .mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 .card{background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);overflow:hidden}
 .ch{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--s2)}
-.ctitle{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:6px}
-.badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:500}
-.br{background:var(--rbg);color:var(--rtx)}.bb{background:var(--bbg);color:var(--btx)}.bg{background:var(--gbg);color:var(--gtx)}.ba{background:var(--abg);color:var(--atx)}
-
-/* TWO COL */
+.ctit{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em}
+.bdg{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:500}
+.bR{background:var(--rbg);color:var(--rtx)}.bG{background:var(--gbg);color:var(--gtx)}.bB{background:var(--bbg);color:var(--btx)}.bP{background:var(--pbg);color:var(--ptx)}
 .tcol{display:grid;grid-template-columns:1fr 1fr}
 .col{padding:12px 14px}
 .colb{border-right:1px solid var(--border)}
-.colh{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px;display:flex;align-items:center;gap:5px}
+.colh{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;display:flex;align-items:center;gap:5px}
 .colh::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* OCC */
-.oi{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--border)}
+.oi{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
 .oi:last-child{border-bottom:none}
 .od{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .ot{font-size:12px;flex:1}
 .odate{font-size:10px;color:var(--t3)}
-
-/* AGENDA */
 .ai2{display:flex;align-items:flex-start;gap:9px;padding:6px 0;border-bottom:1px solid var(--border)}
 .ai2:last-child{border-bottom:none}
 .aico{width:28px;height:28px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
-.ar{background:var(--rbg)}.ab2{background:var(--bbg)}.aa{background:var(--abg)}.ag{background:var(--gbg)}.ap{background:var(--pbg)}
-.atitle{font-size:12px;font-weight:500}
-.ameta{font-size:11px;color:var(--t3);margin-top:1px}
-.cbadge{font-size:10px;background:var(--abg);color:var(--atx);padding:1px 5px;border-radius:3px;margin-left:3px}
-
-/* CHART */
-.crow{margin-bottom:14px}
-.ccard{background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);overflow:hidden}
-.cinn{padding:12px 16px;position:relative;height:150px}
-.legrow{display:flex;gap:14px;flex-wrap:wrap}
-.legitem{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2)}
-.legsq{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-
-/* BOTTOM */
+.aR{background:var(--rbg)}.aB{background:var(--bbg)}.aA{background:var(--abg)}.aG{background:var(--gbg)}.aP{background:var(--pbg)}
+.atit{font-size:12px;font-weight:500}
+.amet{font-size:11px;color:var(--t3);margin-top:1px}
+.crow2{margin-bottom:14px}
 .brow{display:grid;grid-template-columns:300px minmax(0,1fr);gap:12px}
 .lcard{background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);display:flex;flex-direction:column;height:460px}
-.lhead{padding:10px 14px;border-bottom:1px solid var(--border);background:var(--s2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.lh{padding:10px 14px;border-bottom:1px solid var(--border);background:var(--s2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .lfilts{display:flex;gap:4px}
 .flt{font-size:10px;padding:3px 8px;border:1px solid var(--border2);border-radius:4px;background:transparent;color:var(--t2);cursor:pointer;font-family:inherit}
 .flt:hover,.flt.on{background:var(--text);color:var(--surface);border-color:var(--text)}
-.lscroll{flex:1;overflow-y:auto}
-.lsec{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;padding:7px 14px 3px;display:flex;align-items:center;gap:5px;position:sticky;top:0;background:var(--surface);z-index:1}
+.lscr{flex:1;overflow-y:auto}
+.lsec{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;padding:8px 14px 4px;display:flex;align-items:center;gap:5px;position:sticky;top:0;background:var(--surface);z-index:1}
 .lsec::after{content:'';flex:1;height:1px;background:var(--border)}
 .ei{padding:8px 14px;cursor:pointer;border-left:3px solid transparent;border-bottom:1px solid var(--border);transition:background .1s}
 .ei:hover{background:var(--s2)}
 .ei.on{background:var(--bbg);border-left-color:var(--blu)}
 .ei.gone{display:none}
 .eitop{display:flex;align-items:center;gap:5px;margin-bottom:3px}
-.eidot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
 .eifrom{font-size:12px;font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ei.on .eifrom{color:var(--btx)}
 .eitime{font-size:10px;color:var(--t3);flex-shrink:0}
@@ -132,78 +103,85 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .eitags{display:flex;gap:3px;flex-wrap:wrap}
 .tag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:500}
 .tR{background:var(--rbg);color:var(--rtx)}.tA{background:var(--abg);color:var(--atx)}.tB{background:var(--bbg);color:var(--btx)}.tG{background:var(--gbg);color:var(--gtx)}.tP{background:var(--pbg);color:var(--ptx)}.tN{background:var(--s2);color:var(--t3);border:1px solid var(--border)}
-.xbtn{margin-left:auto;width:16px;height:16px;border-radius:3px;border:none;background:transparent;color:var(--t3);cursor:pointer;font-size:12px;display:none;align-items:center;justify-content:center;flex-shrink:0}
+.xbtn{margin-left:auto;width:16px;height:16px;border-radius:3px;border:none;background:transparent;color:var(--t3);cursor:pointer;font-size:13px;display:none;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
 .ei:hover .xbtn{display:flex}
 .xbtn:hover{background:var(--rbg);color:var(--rtx)}
-
-/* DETAIL */
 .dcard{background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);display:flex;flex-direction:column;height:460px}
 .dhead{padding:10px 14px;border-bottom:1px solid var(--border);background:var(--s2);display:flex;align-items:center;gap:8px;flex-shrink:0}
-.dtitle{font-size:13px;font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dtit{font-size:13px;font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dsub{font-size:11px;color:var(--t3);white-space:nowrap}
-.dscroll{flex:1;overflow-y:auto;padding:12px 14px}
+.dscr{flex:1;overflow-y:auto;padding:12px 14px}
 .dc{display:none}.dc.on{display:block}
-
 .ab{padding:9px 12px;border-radius:var(--r);margin-bottom:10px;display:flex;align-items:flex-start;gap:8px;border-left:3px solid;font-size:12px;line-height:1.5}
 .ab.R{background:var(--rbg);border-left-color:var(--red);color:var(--rtx)}
 .ab.A{background:var(--abg);border-left-color:var(--amb);color:var(--atx)}
-.ab.B{background:var(--bbg);border-left-color:var(--blu);color:var(--btx)}
 .ab.G{background:var(--gbg);border-left-color:var(--grn);color:var(--gtx)}
+.ab.B{background:var(--bbg);border-left-color:var(--blu);color:var(--btx)}
 .ab.P{background:var(--pbg);border-left-color:var(--pur);color:var(--ptx)}
-
 .tbox{margin-bottom:10px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
-.thead2{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--s2);border-bottom:1px solid var(--border)}
-.tlabel{font-size:11px;font-weight:500;color:var(--t2)}
-.tcount{font-size:10px;color:var(--t3);margin-left:auto}
+.tboxh{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--s2);border-bottom:1px solid var(--border)}
+.tlbl{font-size:11px;font-weight:500;color:var(--t2)}
+.tcnt{font-size:10px;color:var(--t3);margin-left:auto}
 .tbody{padding:10px 12px;font-size:12px;color:var(--t2);line-height:1.6}
-.lmsg{margin-top:8px;padding:7px 10px;background:var(--s2);border-radius:var(--r);border-left:2px solid var(--border2)}
+.lm{margin-top:8px;padding:7px 10px;background:var(--s2);border-radius:var(--r);border-left:2px solid var(--border2)}
 .lmlbl{font-size:10px;color:var(--t3);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
 .lmtxt{font-size:12px;color:var(--text);font-style:italic}
-
 .draftbox{border:1px solid rgba(55,138,221,.3);border-radius:var(--r);overflow:hidden;margin-top:10px}
-.dh{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--bbg);border-bottom:1px solid rgba(55,138,221,.2)}
+.dh2{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--bbg);border-bottom:1px solid rgba(55,138,221,.2)}
 .dlbl{font-size:10px;color:var(--btx);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-.dht{font-size:10px;color:var(--blu)}
+.dhint{font-size:10px;color:var(--blu)}
 .sjrow{display:flex;align-items:center;gap:6px;padding:6px 10px;border-bottom:1px solid rgba(55,138,221,.15);background:var(--surface)}
 .sjlbl{font-size:11px;color:var(--t3);flex-shrink:0}
 .sjinp{flex:1;font-size:12px;color:var(--text);background:transparent;border:none;outline:none;font-family:inherit}
-.dta{width:100%;min-height:85px;font-size:12px;line-height:1.6;color:var(--text);background:var(--surface);border:none;outline:none;padding:8px 10px;resize:vertical;font-family:inherit}
+.dta{width:100%;min-height:90px;font-size:12px;line-height:1.6;color:var(--text);background:var(--surface);border:none;outline:none;padding:8px 10px;resize:vertical;font-family:inherit}
 .dsig{padding:6px 10px;border-top:1px solid rgba(55,138,221,.15);background:var(--s2);font-size:11px;color:var(--t3)}
-
 .arow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.btn{font-size:12px;padding:6px 14px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--t2);cursor:pointer;font-family:inherit;transition:background .1s}
+.btn{font-size:12px;padding:6px 14px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--t2);cursor:pointer;font-family:inherit}
 .btn:hover{background:var(--s2)}
 .btnp{background:var(--text);color:var(--surface);border-color:transparent}
 .btnp:hover{opacity:.88}
-.btng{background:#EA4335;color:#fff;border-color:transparent;display:flex;align-items:center;gap:5px}
+.btng{background:#EA4335;color:#fff;border-color:transparent}
 .btng:hover{opacity:.88}
 .rbar{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--gbg);border-left:3px solid var(--grn);border-radius:var(--r);margin-bottom:10px;font-size:12px;color:var(--gtx)}
-.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:220px;gap:10px;color:var(--t3)}
-
-/* AI LOADING */
-.ai-load{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px;gap:12px}
-.ai-spinner{width:32px;height:32px;border:3px solid var(--pbg);border-top-color:var(--pur);border-radius:50%;animation:spin .8s linear infinite}
-.ai-msg{font-size:12px;color:var(--ptx);text-align:center}
-
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;gap:10px;color:var(--t3)}
+.ai-load{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;gap:12px}
+.ai-spin{width:28px;height:28px;border:3px solid var(--pbg);border-top-color:var(--pur);border-radius:50%;animation:spin .8s linear infinite}
+/* MODAL CONFIGURAÇÃO */
+.modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal-box{background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);padding:28px 32px;width:460px;max-width:94vw;box-shadow:0 8px 32px rgba(0,0,0,0.15)}
+.modal-title{font-size:16px;font-weight:500;margin-bottom:6px;color:var(--text)}
+.modal-sub{font-size:12px;color:var(--t2);margin-bottom:22px;line-height:1.6}
+.modal-label{font-size:12px;font-weight:500;color:var(--t2);margin-bottom:6px;display:block}
+.modal-inp{width:100%;font-size:12px;padding:9px 12px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--text);font-family:inherit;display:block;margin-bottom:14px;outline:none}
+.modal-inp:focus{border-color:var(--blu);box-shadow:0 0 0 3px rgba(55,138,221,.15)}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+.modal-note{font-size:11px;color:var(--t3);margin-top:14px;padding:8px 10px;background:var(--s2);border-radius:var(--r);line-height:1.5}
 @media(max-width:900px){
   .krow{grid-template-columns:repeat(3,1fr)}
   .mrow,.brow,.tcol{grid-template-columns:1fr}
   .colb{border-right:none;border-bottom:1px solid var(--border)}
 }
-
-.cfg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:999;display:flex;align-items:center;justify-content:center}
-.cfg-box{background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);padding:28px 32px;width:440px;max-width:95vw}
-.cfg-title{font-size:16px;font-weight:500;margin-bottom:6px}
-.cfg-sub{font-size:12px;color:var(--t2);margin-bottom:20px;line-height:1.5}
-.cfg-label{font-size:12px;font-weight:500;color:var(--t2);margin-bottom:6px;display:block}
-.cfg-input{width:100%;font-size:12px;padding:9px 12px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--text);font-family:inherit;margin-bottom:14px;outline:none}
-.cfg-input:focus{border-color:var(--blu)}
-.cfg-row{display:flex;gap:8px;justify-content:flex-end;margin-top:4px}
-.cfg-note{font-size:11px;color:var(--t3);margin-top:12px;line-height:1.5;padding:8px 10px;background:var(--s2);border-radius:var(--r)}
-
 </style>
 </head>
 <body>
+
+<!-- MODAL CONFIGURAÇÃO -->
+<div class="modal-bg" id="cfg-modal">
+  <div class="modal-box">
+    <div class="modal-title">⚙️ Configuração</div>
+    <div class="modal-sub">Insira sua chave da API Anthropic para ativar a classificação inteligente de emails com IA.<br>A chave fica salva <strong>apenas no seu navegador</strong> — nunca é enviada para outros servidores.</div>
+    <label class="modal-label" for="inp-apikey">Anthropic API Key <span style="color:var(--t3);font-weight:400">(obrigatório)</span></label>
+    <input class="modal-inp" id="inp-apikey" type="password" placeholder="sk-ant-api03-..." autocomplete="off" />
+    <label class="modal-label" for="inp-gmailid">Gmail OAuth Client ID</label>
+    <input class="modal-inp" id="inp-gmailid" type="text" value="1098352228172-p6sb1411m2qgnoo0dhkbrmfupbqpkthi.apps.googleusercontent.com" />
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn btnp" onclick="saveModal()">Salvar e continuar</button>
+    </div>
+    <div class="modal-note">🔒 As chaves ficam no localStorage do seu navegador. Para redefinir, clique no ⚙️ no topo.</div>
+  </div>
+</div>
 
 <div class="top">
   <div class="tl">
@@ -214,73 +192,63 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="tr">
     <span class="tdate" id="tsync">Não sincronizado</span>
     <div id="upill" style="display:none" class="upill">
-      <div class="uav" id="uav">DO</div>
-      <span id="uname">Daniel Ozaki</span>
+      <div class="uav">DO</div>
+      <span>Daniel Ozaki</span>
     </div>
-    <button class="abtn" id="abtn" onclick="startAuth()">🔑 Conectar Gmail</button>
-    <button class="sbtn" id="sbtn" onclick="syncAll()">
+    <button class="ibtn" id="abtn" onclick="startAuth()">🔑 Conectar Gmail</button>
+    <button class="ibtn" id="sbtn" style="display:none" onclick="syncAll()">
       <svg id="sico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
       Sincronizar + IA
     </button>
-    <button class="sbtn" id="cfgbtn" onclick="openCfg()" style="display:flex" title="Configurações">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-    </button>
+    <button class="ibtn" onclick="openModal()" title="Configurações" style="padding:6px 10px">⚙️</button>
   </div>
 </div>
 
 <div class="sbar info" id="sbar">
-  ℹ️ Clique em "Conectar Gmail" para autenticar. Após sincronizar, a IA analisa e classifica todos os emails automaticamente.
+  ℹ️ Clique em ⚙️ para configurar sua API Key, depois conecte o Gmail.
 </div>
 
 <div class="main">
   <div class="krow">
-    <div class="kc kr"><div class="kv" id="kp">—</div><div class="kl">Pendentes</div><div class="ks" id="kpsub">aguardando sync</div></div>
-    <div class="kc kr"><div class="kv" id="ku">—</div><div class="kl">Urgentes</div><div class="ks">ação imediata</div></div>
-    <div class="kc ka"><div class="kv" id="kat">—</div><div class="kl">Atenção</div><div class="ks">@mencio. / ops</div></div>
-    <div class="kc kg"><div class="kv" id="kres">—</div><div class="kl">Resolvidos</div><div class="ks">por outros</div></div>
-    <div class="kc kb"><div class="kv" id="ktot">—</div><div class="kl">Total threads</div><div class="ks">últimos 5 dias</div></div>
-    <div class="kc kn"><div class="kv" id="kdis">0</div><div class="kl">Descartados</div><div class="ks">nesta sessão</div></div>
+    <div class="kc kR"><div class="kv" id="kp">—</div><div class="kl">Pendentes</div><div class="ks" id="kpsub">aguardando sync</div></div>
+    <div class="kc kR"><div class="kv" id="ku">—</div><div class="kl">Urgentes</div><div class="ks">ação imediata</div></div>
+    <div class="kc" style="border-top-color:var(--amb)"><div class="kv" style="color:var(--amb)" id="kat">—</div><div class="kl">Atenção</div><div class="ks" style="color:var(--amb)">@mencio. / ops</div></div>
+    <div class="kc kG"><div class="kv" id="kres">—</div><div class="kl">Resolvidos</div><div class="ks">por outros</div></div>
+    <div class="kc kB"><div class="kv" id="ktot">—</div><div class="kl">Total threads</div><div class="ks">últimos 5 dias</div></div>
+    <div class="kc kN"><div class="kv" id="kdis">0</div><div class="kl">Descartados</div><div class="ks">nesta sessão</div></div>
   </div>
 
   <div class="mrow">
     <div class="card">
-      <div class="ch">
-        <span class="ctitle">⚠ Ocorrências — últimos 5 dias</span>
-        <span class="badge br" id="occbadge">aguardando IA</span>
-      </div>
-      <div id="occ-panel">
-        <div class="ai-load"><div class="ai-spinner"></div><div class="ai-msg">Sincronize para carregar ocorrências reais</div></div>
-      </div>
+      <div class="ch"><span class="ctit">⚠ Ocorrências — últimos 5 dias</span><span class="bdg bR" id="occbadge">aguardando IA</span></div>
+      <div id="occ-panel"><div class="ai-load"><div class="ai-spin"></div><p style="font-size:12px;color:var(--ptx)">Sincronize para carregar</p></div></div>
     </div>
     <div class="card">
-      <div class="ch">
-        <span class="ctitle">📅 Agenda da semana — eventos</span>
-        <span class="badge bb" id="agbadge">aguardando IA</span>
-      </div>
-      <div id="agenda-panel">
-        <div class="ai-load"><div class="ai-spinner"></div><div class="ai-msg">Sincronize para detectar eventos nos emails</div></div>
-      </div>
+      <div class="ch"><span class="ctit">📅 Agenda da semana</span><span class="bdg bB" id="agbadge">aguardando IA</span></div>
+      <div id="agenda-panel"><div class="ai-load"><div class="ai-spin"></div><p style="font-size:12px;color:var(--ptx)">Sincronize para carregar</p></div></div>
     </div>
   </div>
 
-  <div class="crow">
-    <div class="ccard">
+  <div class="crow2">
+    <div class="card">
       <div class="ch">
-        <span class="ctitle">📊 Volume por categoria — últimos 5 dias</span>
-        <div class="legrow">
-          <div class="legitem"><div class="legsq" style="background:var(--red)"></div>Urgente</div>
-          <div class="legitem"><div class="legsq" style="background:var(--amb)"></div>Atenção/Ops</div>
-          <div class="legitem"><div class="legsq" style="background:var(--pur)"></div>@Mencionado</div>
-          <div class="legitem"><div class="legsq" style="background:var(--grn)"></div>Resolvidos</div>
+        <span class="ctit">📊 Volume por categoria — últimos 5 dias</span>
+        <div style="display:flex;gap:14px">
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2)"><span style="width:10px;height:10px;border-radius:2px;background:var(--red)"></span>Urgente</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2)"><span style="width:10px;height:10px;border-radius:2px;background:var(--amb)"></span>Atenção</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2)"><span style="width:10px;height:10px;border-radius:2px;background:var(--pur)"></span>@Mencio.</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2)"><span style="width:10px;height:10px;border-radius:2px;background:var(--grn)"></span>Resolvidos</span>
         </div>
       </div>
-      <div class="cinn"><canvas id="chart1" role="img" aria-label="Volume de emails por categoria">Gráfico de volume</canvas></div>
+      <div style="padding:12px 16px;position:relative;height:150px">
+        <canvas id="chart1" role="img" aria-label="Volume de emails por categoria nos últimos 5 dias">Gráfico de volume de emails</canvas>
+      </div>
     </div>
   </div>
 
   <div class="brow">
     <div class="lcard">
-      <div class="lhead">
+      <div class="lh">
         <span style="font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em">Caixa de entrada</span>
         <div class="lfilts">
           <button class="flt on" onclick="filt(this,'all')">Todos</button>
@@ -288,9 +256,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <button class="flt" onclick="filt(this,'r')">Resol.</button>
         </div>
       </div>
-      <div class="lscroll" id="elist">
-        <div style="padding:40px 20px;text-align:center;color:var(--t3);font-size:12px">
-          Conecte o Gmail e clique em<br>"Sincronizar + IA" para carregar os emails
+      <div class="lscr" id="elist">
+        <div style="padding:40px 20px;text-align:center;color:var(--t3);font-size:12px;line-height:1.8">
+          1. Clique em ⚙️ e configure a API Key<br>
+          2. Clique em 🔑 Conectar Gmail<br>
+          3. Clique em Sincronizar + IA
         </div>
       </div>
     </div>
@@ -298,10 +268,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="dcard">
       <div class="dhead" id="dhead">
         <span style="font-size:14px;color:var(--t3)">✉</span>
-        <span class="dtitle" id="dtitle">Selecione um email</span>
+        <span class="dtit" id="dtit">Selecione um email</span>
         <span class="dsub" id="dsub"></span>
       </div>
-      <div class="dscroll" id="dscroll">
+      <div class="dscr" id="dscr">
         <div class="empty">
           <span style="font-size:32px;opacity:.3">✉</span>
           <p style="font-size:13px">Selecione um item à esquerda</p>
@@ -316,62 +286,89 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <script>
+/* ── CONSTANTES ── */
 const GMAIL_CLIENT = '1098352228172-p6sb1411m2qgnoo0dhkbrmfupbqpkthi.apps.googleusercontent.com';
-let CLAUDE_KEY   = localStorage.getItem('trousseau_claude_key') || '';
-const SCOPES       = 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose';
 
+/* ── MODAL CONFIGURAÇÃO ── */
+function openModal() {
+  const key = localStorage.getItem('trousseau_claude_key') || '';
+  if (key) document.getElementById('inp-apikey').value = key;
+  document.getElementById('cfg-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('cfg-modal').classList.remove('open');
+}
+
+function saveModal() {
+  const key = document.getElementById('inp-apikey').value.trim();
+  if (!key) { alert('Por favor insira a API Key.'); return; }
+  if (!key.startsWith('sk-ant-')) { alert('Chave inválida. Deve começar com sk-ant-...'); return; }
+  localStorage.setItem('trousseau_claude_key', key);
+  closeModal();
+  setStatus('✅ API Key salva! Agora clique em "Conectar Gmail".', 'ok');
+}
+
+/* Fechar modal clicando fora */
+document.getElementById('cfg-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+/* ── AUTH GMAIL ── */
 let token = null, tokenClient = null, dismissCount = 0, chartInst = null;
-let allEmails = [], aiResult = null;
 
-/* ── AUTH ── */
-window.addEventListener('load', () => {
+window.addEventListener('load', function() {
+  const key = localStorage.getItem('trousseau_claude_key');
+  if (!key) {
+    setStatus('⚙️ Primeiro passo: clique no ícone ⚙️ no canto superior direito para configurar sua API Key.', 'warn');
+  } else {
+    setStatus('✅ API Key configurada. Clique em "Conectar Gmail" para sincronizar.', 'ok');
+  }
   if (typeof google !== 'undefined') {
     tokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: GMAIL_CLIENT, scope: SCOPES,
-      callback: r => { if (r.error) { setStatus('Erro auth: ' + r.error, 'err'); return; } token = r.access_token; onAuth(); }
+      client_id: GMAIL_CLIENT,
+      scope: 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose',
+      callback: function(r) {
+        if (r.error) { setStatus('Erro auth: ' + r.error, 'err'); return; }
+        token = r.access_token;
+        document.getElementById('abtn').style.display = 'none';
+        document.getElementById('sbtn').style.display = 'flex';
+        document.getElementById('upill').style.display = 'flex';
+        setStatus('✅ Gmail conectado! Clique em "Sincronizar + IA".', 'ok');
+      }
     });
   }
+  initChart();
 });
 
 function startAuth() {
-  if (!tokenClient) { setStatus('Aguarde a biblioteca Google carregar...', 'warn'); return; }
+  const key = localStorage.getItem('trousseau_claude_key');
+  if (!key) { openModal(); return; }
+  if (!tokenClient) { setStatus('Aguarde a biblioteca Google carregar e tente novamente.', 'warn'); return; }
   tokenClient.requestAccessToken({ prompt: 'consent' });
 }
 
-function onAuth() {
-  document.getElementById('abtn').style.display = 'none';
-  const sb = document.getElementById('sbtn'); sb.style.display = 'flex';
-  document.getElementById('upill').style.display = 'flex';
-  setStatus('Gmail conectado! Clique em "Sincronizar + IA" para analisar seus emails.', 'ok');
-}
-
-/* ── MAIN SYNC FLOW ── */
+/* ── SINCRONIZAÇÃO ── */
 async function syncAll() {
+  const claudeKey = localStorage.getItem('trousseau_claude_key');
+  if (!claudeKey) { openModal(); return; }
   if (!token) { setStatus('Conecte o Gmail primeiro.', 'warn'); return; }
   const ico = document.getElementById('sico');
   ico.classList.add('spinning');
   document.getElementById('sbtn').disabled = true;
-
   try {
     setStatus('📥 Buscando threads do Gmail (últimos 5 dias)...', 'info');
-    const threads = await fetchGmailThreads();
+    const threads = await fetchThreads();
     document.getElementById('ktot').textContent = threads.length;
-    setStatus(`📧 ${threads.length} threads encontrados. Carregando detalhes...`, 'info');
-
-    const details = await fetchThreadDetails(threads.slice(0, 25));
-    allEmails = details;
-
-    setStatus('🤖 IA analisando e classificando emails... (pode levar 15–30s)', 'ai');
-    aiResult = await analyzeWithClaude(details);
-
-    setStatus('✅ Análise concluída! Dashboard atualizado com dados reais.', 'ok');
-    renderAll(aiResult);
-
-    const now = new Date();
-    document.getElementById('tsync').textContent = 'Sincronizado às ' + now.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+    setStatus('📧 ' + threads.length + ' threads. Carregando detalhes...', 'info');
+    const details = await fetchDetails(threads.slice(0, 25));
+    setStatus('🤖 IA analisando emails... (pode levar 20–30s)', 'ai');
+    const result = await analyzeWithClaude(details, claudeKey);
+    renderAll(result);
+    document.getElementById('tsync').textContent = 'Sincronizado às ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+    setStatus('✅ Dashboard atualizado com seus emails reais!', 'ok');
   } catch(e) {
     setStatus('Erro: ' + e.message, 'err');
-    console.error(e);
   } finally {
     ico.classList.remove('spinning');
     document.getElementById('sbtn').disabled = false;
@@ -379,128 +376,57 @@ async function syncAll() {
 }
 
 /* ── GMAIL API ── */
-async function fetchGmailThreads() {
+async function fetchThreads() {
   const since = Math.floor(Date.now()/1000) - 5*86400;
-  const url = `https://gmail.googleapis.com/gmail/v1/users/me/threads?maxResults=30&q=in:inbox after:${since}`;
-  const r = await fetch(url, { headers: { Authorization: 'Bearer ' + token } });
-  if (!r.ok) throw new Error('Gmail API: ' + r.status);
+  const r = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/threads?maxResults=30&q=in:inbox after:' + since, {
+    headers: { Authorization: 'Bearer ' + token }
+  });
+  if (!r.ok) throw new Error('Gmail: ' + r.status);
   const d = await r.json();
   return d.threads || [];
 }
 
-async function fetchThreadDetails(threads) {
-  const details = [];
+async function fetchDetails(threads) {
+  const list = [];
   for (const t of threads) {
     try {
-      const url = `https://gmail.googleapis.com/gmail/v1/users/me/threads/${t.id}?format=metadata&metadataHeaders=From&metadataHeaders=To&metadataHeaders=Subject&metadataHeaders=Date&metadataHeaders=Cc`;
-      const r = await fetch(url, { headers: { Authorization: 'Bearer ' + token } });
+      const r = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/threads/' + t.id + '?format=metadata&metadataHeaders=From&metadataHeaders=To&metadataHeaders=Subject&metadataHeaders=Date&metadataHeaders=Cc', {
+        headers: { Authorization: 'Bearer ' + token }
+      });
       const d = await r.json();
       const msgs = d.messages || [];
       const first = msgs[0], last = msgs[msgs.length-1];
-      const gh = (m, n) => ((m?.payload?.headers?.find(h => h.name===n))||{}).value||'';
-      details.push({
+      function gh(m, n) { return ((m && m.payload && m.payload.headers && m.payload.headers.find(function(h){ return h.name===n; })) || {}).value || ''; }
+      list.push({
         id: t.id,
         subject: gh(first,'Subject') || '(sem assunto)',
         from: gh(last,'From'),
         to: gh(last,'To'),
         cc: gh(last,'Cc'),
         date: gh(last,'Date'),
-        firstDate: gh(first,'Date'),
         msgCount: msgs.length,
-        snippet: last?.snippet || '',
-        firstSnippet: first?.snippet || '',
-        allFrom: msgs.map(m => gh(m,'From')).join(' | ')
+        snippet: (last && last.snippet) || '',
+        firstSnippet: (first && first.snippet) || '',
+        allFrom: msgs.map(function(m){ return gh(m,'From'); }).join(' | ')
       });
     } catch(e) { /* skip */ }
   }
-  return details;
+  return list;
 }
 
-/* ── CLAUDE AI ANALYSIS ── */
-async function analyzeWithClaude(emails) {
-  const emailsText = emails.map((e,i) => `
-EMAIL ${i+1}:
-  ID: ${e.id}
-  Assunto: ${e.subject}
-  De: ${e.from}
-  Para: ${e.to}
-  CC: ${e.cc}
-  Data última msg: ${e.date}
-  Mensagens no thread: ${e.msgCount}
-  Snippet último: ${e.snippet}
-  Snippet primeiro: ${e.firstSnippet}
-  Todos remetentes: ${e.allFrom}
-`).join('\n---\n');
+/* ── CLAUDE API ── */
+async function analyzeWithClaude(emails, apiKey) {
+  const emailsText = emails.map(function(e, i) {
+    return 'EMAIL ' + (i+1) + ':\n  ID: ' + e.id + '\n  Assunto: ' + e.subject + '\n  De: ' + e.from + '\n  Para: ' + e.to + '\n  CC: ' + e.cc + '\n  Data: ' + e.date + '\n  Msgs: ' + e.msgCount + '\n  Snippet último: ' + e.snippet + '\n  Todos remetentes: ' + e.allFrom;
+  }).join('\n---\n');
 
-  const prompt = `Você é o assistente de emails do Daniel Ozaki, Gerente de Logística da Trousseau (empresa de enxovais premium). Analise os emails abaixo e retorne SOMENTE um JSON válido, sem markdown, sem explicação.
+  const prompt = 'Você é o assistente de emails do Daniel Ozaki, Gerente de Logística da Trousseau. Email: daniel.ozaki@trousseau.com.br. Colegas: Diego Santos, Emerson Pinheiro, Fernanda Cavalcante, Lucivaldo, João Saturnino, Tayama Bueno, Gabriel Moura. Transportadoras: Movvi, Braspress, Jamef, Total, Correios.\n\nCLASSIFICAÇÃO:\n- urgente: email DIRETO para Daniel sem resposta, ou chefia cobrou, ou URGENTE no assunto\n- atencao: ops logística não direto para Daniel mas impacta operação; @daniel.ozaki mencionado no texto\n- resolvido: colega já deu resposta conclusiva; Daniel já respondeu e aguarda\n- informativo: newsletter, RH, notificações automáticas\n\nRETORNE SOMENTE JSON válido, sem markdown:\n{"kpis":{"urgente":0,"atencao":0,"resolvido":0,"informativo":0},"emails":[{"id":"","from_short":"","subject_short":"","category":"urgente|atencao|resolvido|informativo","priority":"alta|media|baixa","date_short":"","tags":[],"resumo":"","ultima_mensagem":"","ultimo_remetente":"","msg_count":0,"acao_sugerida":"","rascunho":null,"rascunho_para":null}],"ocorrencias":{"urgente":[],"atencao":[]},"agenda":[{"titulo":"","meta":"","tipo":"reuniao|entrega|visita|prazo|evento","urgencia":"alta|media|baixa"}],"grafico":{"labels":[],"urgente":[],"atencao":[],"mencionado":[],"resolvido":[]}}\n\nEMAILS:\n' + emailsText;
 
-CONTEXTO: daniel.ozaki@trousseau.com.br é o usuário. Colegas frequentes: Diego Santos, Emerson Pinheiro, Carla Maris, Lucivaldo, João Saturnino, Fernanda Cavalcante, Tayama Bueno, Gabriel Moura, Renata, Vivian. Transportadoras: Movvi, Braspress, Jamef, Total, Correios.
-
-REGRAS DE CLASSIFICAÇÃO:
-- "urgente": emails DIRETOS para Daniel sem resposta, ou que Emerson/chefia cobrou Daniel, ou com palavras URGENTE/urgência/prazo crítico
-- "atencao": emails de operação logística (logistica.adm, transportadoras, NFs) que não são diretos para Daniel mas impactam a operação; ou emails onde @daniel.ozaki é mencionado no texto
-- "resolvido": threads onde outro colega (não Daniel) já deu resposta conclusiva/final; ou Daniel já respondeu e aguarda retorno
-- "informativo": newsletters, RH aniversários, notificações automáticas sem ação necessária
-
-DETECÇÃO DE AGENDA: identifique reuniões, visitas, entregas agendadas, eventos mencionados nos emails.
-
-RETORNE EXATAMENTE este JSON:
-{
-  "kpis": {
-    "urgente": <número>,
-    "atencao": <número>,
-    "resolvido": <número>,
-    "informativo": <número>
-  },
-  "emails": [
-    {
-      "id": "<id do email>",
-      "from_short": "<nome curto do remetente>",
-      "subject_short": "<assunto resumido em até 45 chars>",
-      "category": "urgente|atencao|resolvido|informativo",
-      "priority": "alta|media|baixa",
-      "date_short": "<DD/MM ou 'hoje'>",
-      "tags": ["<tag1>","<tag2>"],
-      "resumo": "<resumo em 1-2 frases do que é o email>",
-      "ultima_mensagem": "<snippet da última mensagem>",
-      "ultimo_remetente": "<nome de quem enviou a última msg>",
-      "msg_count": <número>,
-      "acao_sugerida": "<o que Daniel deve fazer, em 1 frase>",
-      "rascunho": "<rascunho de resposta pronto para usar, ou null se não precisar>",
-      "rascunho_para": "<email do destinatário para o rascunho, ou null>"
-    }
-  ],
-  "ocorrencias": {
-    "urgente": ["<ocorrência 1>", "<ocorrência 2>"],
-    "atencao": ["<ocorrência 1>", "<ocorrência 2>"]
-  },
-  "agenda": [
-    {
-      "titulo": "<título do evento>",
-      "meta": "<data/hora e detalhes>",
-      "tipo": "reuniao|entrega|visita|prazo|evento",
-      "urgencia": "alta|media|baixa"
-    }
-  ],
-  "grafico": {
-    "labels": ["<data1>","<data2>","<data3>","<data4>","<data5>"],
-    "urgente": [<n>,<n>,<n>,<n>,<n>],
-    "atencao": [<n>,<n>,<n>,<n>,<n>],
-    "mencionado": [<n>,<n>,<n>,<n>,<n>],
-    "resolvido": [<n>,<n>,<n>,<n>,<n>]
-  }
-}
-
-EMAILS PARA ANALISAR:
-${emailsText}`;
-
-  CLAUDE_KEY = localStorage.getItem('trousseau_claude_key') || '';
-  if (!CLAUDE_KEY) { setStatus('⚙️ Configure sua API Key primeiro — clique no ícone ⚙️ no topo.', 'warn'); throw new Error('API Key não configurada'); }
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': CLAUDE_KEY,
+      'x-api-key': apiKey,
       'anthropic-version': '2023-06-01',
       'anthropic-dangerous-direct-browser-access': 'true'
     },
@@ -515,84 +441,71 @@ ${emailsText}`;
     const err = await resp.text();
     throw new Error('Claude API: ' + resp.status + ' — ' + err.slice(0,200));
   }
-
   const data = await resp.json();
-  const text = data.content[0].text.trim();
-  const clean = text.replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/\s*```$/,'').trim();
-  return JSON.parse(clean);
+  const text = data.content[0].text.trim().replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/\s*```$/,'').trim();
+  return JSON.parse(text);
 }
 
 /* ── RENDER ── */
 function renderAll(r) {
-  // KPIs
-  document.getElementById('kp').textContent  = r.kpis.urgente + r.kpis.atencao;
-  document.getElementById('ku').textContent  = r.kpis.urgente;
-  document.getElementById('kat').textContent = r.kpis.atencao;
-  document.getElementById('kres').textContent= r.kpis.resolvido;
+  document.getElementById('kp').textContent  = (r.kpis.urgente || 0) + (r.kpis.atencao || 0);
+  document.getElementById('ku').textContent  = r.kpis.urgente || 0;
+  document.getElementById('kat').textContent = r.kpis.atencao || 0;
+  document.getElementById('kres').textContent= r.kpis.resolvido || 0;
   document.getElementById('kpsub').textContent = 'últimos 5 dias';
   document.getElementById('occbadge').textContent = 'ao vivo';
-  document.getElementById('occbadge').className = 'badge bg';
+  document.getElementById('occbadge').className = 'bdg bG';
   document.getElementById('agbadge').textContent = 'ao vivo';
-  document.getElementById('agbadge').className = 'badge bb';
-
-  // Ocorrências
-  renderOcc(r.ocorrencias);
-
-  // Agenda
-  renderAgenda(r.agenda);
-
-  // Chart
+  document.getElementById('agbadge').className = 'bdg bB';
+  renderOcc(r.ocorrencias || {});
+  renderAgenda(r.agenda || []);
   renderChart(r.grafico);
+  renderEmails(r.emails || []);
+  window._aiResult = r;
+}
 
-  // Email list
-  renderEmails(r.emails);
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 function renderOcc(occ) {
-  const urgent = (occ.urgente||[]);
-  const aten   = (occ.atencao||[]);
-  const html = `
-    <div class="tcol">
-      <div class="col colb">
-        <div class="colh">Urgente / ação sua</div>
-        ${urgent.map(o=>`<div class="oi"><span class="od" style="background:var(--red)"></span><span class="ot">${esc(o)}</span></div>`).join('')||'<div style="font-size:12px;color:var(--t3);padding:8px 0">Nenhuma urgente</div>'}
-      </div>
-      <div class="col">
-        <div class="colh">Atenção / ops</div>
-        ${aten.map(o=>`<div class="oi"><span class="od" style="background:var(--amb)"></span><span class="ot">${esc(o)}</span></div>`).join('')||'<div style="font-size:12px;color:var(--t3);padding:8px 0">Nenhuma</div>'}
-      </div>
-    </div>`;
-  document.getElementById('occ-panel').innerHTML = html;
+  const urg = (occ.urgente||[]).slice(0,6);
+  const atn = (occ.atencao||[]).slice(0,6);
+  document.getElementById('occ-panel').innerHTML =
+    '<div class="tcol">' +
+    '<div class="col colb"><div class="colh">Urgente / ação sua</div>' +
+    (urg.length ? urg.map(function(o){ return '<div class="oi"><span class="od" style="background:var(--red)"></span><span class="ot">' + esc(o) + '</span></div>'; }).join('') : '<p style="font-size:12px;color:var(--t3);padding:8px 0">Nenhuma urgente</p>') +
+    '</div><div class="col"><div class="colh">Atenção / ops</div>' +
+    (atn.length ? atn.map(function(o){ return '<div class="oi"><span class="od" style="background:var(--amb)"></span><span class="ot">' + esc(o) + '</span></div>'; }).join('') : '<p style="font-size:12px;color:var(--t3);padding:8px 0">Nenhuma</p>') +
+    '</div></div>';
 }
 
 function renderAgenda(agenda) {
-  if (!agenda || !agenda.length) {
-    document.getElementById('agenda-panel').innerHTML = '<div style="padding:20px;text-align:center;font-size:12px;color:var(--t3)">Nenhum evento detectado nos emails</div>';
+  if (!agenda.length) {
+    document.getElementById('agenda-panel').innerHTML = '<div style="padding:20px;text-align:center;font-size:12px;color:var(--t3)">Nenhum evento detectado</div>';
     return;
   }
-  const icons = { reuniao:'👥', entrega:'🚚', visita:'🏢', prazo:'⏰', evento:'📦' };
-  const cls   = { alta:'ar', media:'ab2', baixa:'ag' };
-  const items = agenda.slice(0,6).map(a=>`
-    <div class="ai2">
-      <div class="aico ${cls[a.urgencia]||'ab2'}">${icons[a.tipo]||'📅'}</div>
-      <div><div class="atitle">${esc(a.titulo)}</div><div class="ameta">${esc(a.meta)}</div></div>
-    </div>`).join('');
-  document.getElementById('agenda-panel').innerHTML = `<div class="col">${items}</div>`;
+  var icons = { reuniao:'👥', entrega:'🚚', visita:'🏢', prazo:'⏰', evento:'📦' };
+  var cls = { alta:'aR', media:'aB', baixa:'aG' };
+  document.getElementById('agenda-panel').innerHTML =
+    '<div class="col">' +
+    agenda.slice(0,6).map(function(a){
+      return '<div class="ai2"><div class="aico ' + (cls[a.urgencia]||'aB') + '">' + (icons[a.tipo]||'📅') + '</div><div><div class="atit">' + esc(a.titulo) + '</div><div class="amet">' + esc(a.meta) + '</div></div></div>';
+    }).join('') + '</div>';
 }
 
 function renderChart(g) {
-  if (!g) return;
-  const ctx = document.getElementById('chart1');
+  if (!g || !g.labels) return;
   if (chartInst) chartInst.destroy();
-  chartInst = new Chart(ctx, {
+  chartInst = new Chart(document.getElementById('chart1'), {
     type: 'bar',
     data: {
       labels: g.labels,
       datasets: [
-        { label:'Urgente',    data:g.urgente,    backgroundColor:'#E24B4A', stack:'a', borderWidth:0 },
-        { label:'Atenção/Ops',data:g.atencao,    backgroundColor:'#EF9F27', stack:'a', borderWidth:0 },
-        { label:'@Mencionado',data:g.mencionado, backgroundColor:'#7F77DD', stack:'a', borderWidth:0 },
-        { label:'Resolvidos', data:g.resolvido,  backgroundColor:'#1D9E75', stack:'a', borderWidth:0 },
+        { label:'Urgente',    data:g.urgente||[],    backgroundColor:'#E24B4A', stack:'a', borderWidth:0 },
+        { label:'Atenção',    data:g.atencao||[],    backgroundColor:'#EF9F27', stack:'a', borderWidth:0 },
+        { label:'@Mencionado',data:g.mencionado||[], backgroundColor:'#7F77DD', stack:'a', borderWidth:0 },
+        { label:'Resolvidos', data:g.resolvido||[],  backgroundColor:'#1D9E75', stack:'a', borderWidth:0 },
       ]
     },
     options: {
@@ -607,220 +520,144 @@ function renderChart(g) {
 }
 
 function renderEmails(emails) {
-  if (!emails || !emails.length) {
-    document.getElementById('elist').innerHTML = '<div style="padding:20px;text-align:center;font-size:12px;color:var(--t3)">Nenhum email encontrado</div>';
+  if (!emails.length) {
+    document.getElementById('elist').innerHTML = '<div style="padding:20px;text-align:center;font-size:12px;color:var(--t3)">Nenhum email</div>';
     return;
   }
-
-  const urgentes   = emails.filter(e=>e.category==='urgente');
-  const atencao    = emails.filter(e=>e.category==='atencao');
-  const resolvidos = emails.filter(e=>e.category==='resolvido');
-  const info       = emails.filter(e=>e.category==='informativo');
-
-  const catColor = { urgente:'var(--red)', atencao:'var(--amb)', resolvido:'var(--grn)', informativo:'var(--t3)' };
-  const tagClass = { urgente:'tR', atencao:'tA', resolvido:'tG', informativo:'tN' };
-
+  var catColor = { urgente:'var(--red)', atencao:'var(--amb)', resolvido:'var(--grn)', informativo:'var(--t3)' };
+  var tagCls   = { urgente:'tR', atencao:'tA', resolvido:'tG', informativo:'tN' };
   function emailItem(e) {
-    const tags = (e.tags||[]).slice(0,2).map(t=>`<span class="tag ${tagClass[e.category]||'tN'}">${esc(t)}</span>`).join('');
-    return `<div class="ei" id="ei-${e.id}" data-cat="${e.category==='urgente'||e.category==='atencao'?'p':'r'}" onclick="showDetail('${e.id}')">
-      <div class="eitop">
-        <span class="eidot" style="background:${catColor[e.category]}"></span>
-        <span class="eifrom">${esc(e.from_short)}</span>
-        <span class="eitime">${esc(e.date_short)}</span>
-        <button class="xbtn" onclick="dismissEi(event,'${e.id}')">✕</button>
-      </div>
-      <div class="eisubj">${esc(e.subject_short)}</div>
-      <div class="eitags">${tags}</div>
-    </div>`;
+    var tags = (e.tags||[]).slice(0,2).map(function(t){ return '<span class="tag ' + (tagCls[e.category]||'tN') + '">' + esc(t) + '</span>'; }).join('');
+    return '<div class="ei" id="ei-' + e.id + '" data-cat="' + (e.category==='urgente'||e.category==='atencao'?'p':'r') + '" onclick="showDetail(\'' + e.id + '\')">' +
+      '<div class="eitop"><span style="width:4px;height:4px;border-radius:50%;background:' + catColor[e.category] + ';flex-shrink:0"></span>' +
+      '<span class="eifrom">' + esc(e.from_short) + '</span><span class="eitime">' + esc(e.date_short) + '</span>' +
+      '<button class="xbtn" onclick="disEi(event,\'' + e.id + '\')">×</button></div>' +
+      '<div class="eisubj">' + esc(e.subject_short) + '</div>' +
+      '<div class="eitags">' + tags + '</div></div>';
   }
-
-  let html = '';
-  if (urgentes.length) { html += `<div class="lsec">Urgente — ação sua</div>${urgentes.map(emailItem).join('')}`; }
-  if (atencao.length)  { html += `<div class="lsec">Ponto de atenção</div>${atencao.map(emailItem).join('')}`; }
-  if (resolvidos.length){ html += `<div class="lsec">Resolvidos por outros</div>${resolvidos.map(emailItem).join('')}`; }
-  if (info.length)     { html += `<div class="lsec">Informativos</div>${info.map(emailItem).join('')}`; }
-
+  var urgentes   = emails.filter(function(e){ return e.category==='urgente'; });
+  var atencao    = emails.filter(function(e){ return e.category==='atencao'; });
+  var resolvidos = emails.filter(function(e){ return e.category==='resolvido'; });
+  var info       = emails.filter(function(e){ return e.category==='informativo'; });
+  var html = '';
+  if (urgentes.length)   html += '<div class="lsec">Urgente — ação sua</div>' + urgentes.map(emailItem).join('');
+  if (atencao.length)    html += '<div class="lsec">Ponto de atenção</div>' + atencao.map(emailItem).join('');
+  if (resolvidos.length) html += '<div class="lsec">Resolvidos por outros</div>' + resolvidos.map(emailItem).join('');
+  if (info.length)       html += '<div class="lsec">Informativos</div>' + info.map(emailItem).join('');
   document.getElementById('elist').innerHTML = html;
-
-  // auto-select first urgent
   if (urgentes.length) showDetail(urgentes[0].id);
+  else if (atencao.length) showDetail(atencao[0].id);
 }
 
 function showDetail(id) {
-  const email = (aiResult?.emails||[]).find(e=>e.id===id);
-  document.querySelectorAll('.ei').forEach(el=>el.classList.remove('on'));
-  const el = document.getElementById('ei-'+id);
-  if (el) el.classList.add('on');
-
+  var result = window._aiResult;
+  if (!result) return;
+  var email = result.emails.find(function(e){ return e.id===id; });
+  document.querySelectorAll('.ei').forEach(function(el){ el.classList.remove('on'); });
+  var eli = document.getElementById('ei-'+id);
+  if (eli) eli.classList.add('on');
   if (!email) return;
-
-  const catLabel = { urgente:'🔴 Urgente', atencao:'🟡 Atenção / ops', resolvido:'🟢 Resolvido', informativo:'⚪ Informativo' };
-  const abClass  = { urgente:'R', atencao:'A', resolvido:'G', informativo:'B' };
-
-  let draftHtml = '';
+  var catLabel = { urgente:'🔴 Urgente', atencao:'🟡 Atenção', resolvido:'🟢 Resolvido', informativo:'⚪ Informativo' };
+  var abCls    = { urgente:'R', atencao:'A', resolvido:'G', informativo:'B' };
+  var sjId = 'sj-' + id.replace(/[^a-z0-9]/gi,'');
+  var drId = 'dr-' + id.replace(/[^a-z0-9]/gi,'');
+  var draftHtml = '';
   if (email.rascunho) {
-    const draftId = 'dr-'+id.replace(/[^a-z0-9]/gi,'');
-    const subjId  = 'sj-'+id.replace(/[^a-z0-9]/gi,'');
-    draftHtml = `
-      <div class="draftbox">
-        <div class="dh"><span class="dlbl">✦ Rascunho IA</span><span class="dht">✏ edite abaixo</span></div>
-        <div class="sjrow"><span class="sjlbl">Assunto:</span><input class="sjinp" id="${subjId}" value="Re: ${esc(email.subject_short)}" /></div>
-        <textarea class="dta" id="${draftId}">${esc(email.rascunho)}</textarea>
-        <div class="dsig"><strong>Daniel Ozaki</strong> — Logística TROUSSEAU · (13) 99198-6658 · daniel.ozaki@trousseau.com.br</div>
-      </div>
-      <div class="arow">
-        <button class="btn btng" onclick="createDraft('${email.rascunho_para||''}','${subjId}','${draftId}')">
-          ✉ Criar rascunho Gmail
-        </button>
-        <button class="btn" onclick="dismissEi({stopPropagation:()=>{}}, '${id}')">Descartar</button>
-      </div>`;
+    draftHtml = '<div class="draftbox">' +
+      '<div class="dh2"><span class="dlbl">✦ Rascunho IA</span><span class="dhint">✏ edite abaixo</span></div>' +
+      '<div class="sjrow"><span class="sjlbl">Assunto:</span><input class="sjinp" id="' + sjId + '" value="Re: ' + esc(email.subject_short) + '" /></div>' +
+      '<textarea class="dta" id="' + drId + '">' + esc(email.rascunho) + '</textarea>' +
+      '<div class="dsig"><strong>Daniel Ozaki</strong> — Logística TROUSSEAU · (13) 99198-6658 · daniel.ozaki@trousseau.com.br</div></div>' +
+      '<div class="arow">' +
+      '<button class="btn btng" onclick="criarRascunho(\'' + (email.rascunho_para||'') + '\',\'' + sjId + '\',\'' + drId + '\')">✉ Criar rascunho Gmail</button>' +
+      '<button class="btn" onclick="disEi2(\'' + id + '\')">Descartar</button></div>';
   } else {
-    draftHtml = `<div class="arow"><a href="https://mail.google.com/mail/u/0/#inbox/${id}" target="_blank" class="btn btnp" style="text-decoration:none">Abrir no Gmail ↗</a><button class="btn" onclick="dismissEi({stopPropagation:()=>{}}, '${id}')">Descartar</button></div>`;
+    draftHtml = '<div class="arow">' +
+      '<a href="https://mail.google.com/mail/u/0/#inbox/' + id + '" target="_blank" class="btn btnp" style="text-decoration:none">Abrir no Gmail ↗</a>' +
+      '<button class="btn" onclick="disEi2(\'' + id + '\')">Descartar</button></div>';
   }
-
-  const html = `
-    <div class="ab ${abClass[email.category]||'B'}">${catLabel[email.category]||''} · ${esc(email.acao_sugerida||'')}</div>
-    <div class="tbox">
-      <div class="thead2">
-        <span class="tlabel">Thread — ${email.msg_count||1} mensagem(s)</span>
-        <span class="tcount">${esc(email.from_short)} · ${esc(email.date_short)}</span>
-      </div>
-      <div class="tbody">
-        ${esc(email.resumo||'')}
-        <div class="lmsg">
-          <div class="lmlbl">Última mensagem — ${esc(email.ultimo_remetente||'')}</div>
-          <div class="lmtxt">"${esc(email.ultima_mensagem||email.snippet||'')}"</div>
-        </div>
-      </div>
-    </div>
-    ${draftHtml}`;
-
-  document.getElementById('dtitle').textContent = email.subject_short;
-  document.getElementById('dsub').textContent   = email.from_short + ' · ' + email.date_short;
-  document.getElementById('dscroll').innerHTML  = html;
+  document.getElementById('dtit').textContent = email.subject_short || id;
+  document.getElementById('dsub').textContent = (email.from_short||'') + ' · ' + (email.date_short||'');
+  document.getElementById('dscr').innerHTML =
+    '<div class="ab ' + (abCls[email.category]||'B') + '">' + (catLabel[email.category]||'') + ' · ' + esc(email.acao_sugerida||'') + '</div>' +
+    '<div class="tbox"><div class="tboxh"><span class="tlbl">Thread — ' + (email.msg_count||1) + ' mensagem(s)</span><span class="tcnt">' + esc(email.from_short||'') + ' · ' + esc(email.date_short||'') + '</span></div>' +
+    '<div class="tbody">' + esc(email.resumo||'') +
+    '<div class="lm"><div class="lmlbl">Última mensagem — ' + esc(email.ultimo_remetente||'') + '</div>' +
+    '<div class="lmtxt">"' + esc(email.ultima_mensagem||email.snippet||'') + '"</div></div></div></div>' +
+    draftHtml;
 }
 
-/* ── CREATE GMAIL DRAFT ── */
-async function createDraft(to, subjId, bodyId) {
+async function criarRascunho(to, sjId, drId) {
   if (!token) { alert('Conecte o Gmail primeiro.'); return; }
-  const subject = document.getElementById(subjId)?.value || '';
-  const body    = document.getElementById(bodyId)?.value || '';
-  const full    = body + '\n\nDaniel Ozaki\nLogística TROUSSEAU · (13) 99198-6658 · daniel.ozaki@trousseau.com.br';
+  var subject = document.getElementById(sjId) ? document.getElementById(sjId).value : '';
+  var body    = document.getElementById(drId) ? document.getElementById(drId).value : '';
+  var full = body + '\n\nDaniel Ozaki\nLogística TROUSSEAU · (13) 99198-6658 · daniel.ozaki@trousseau.com.br';
   try {
-    const raw = [`To: ${to}`,`Subject: ${subject}`,'Content-Type: text/plain; charset=utf-8','',full].join('\r\n');
-    const enc = btoa(unescape(encodeURIComponent(raw))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
-    const r = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/drafts', {
+    var raw = ['To: ' + to, 'Subject: ' + subject, 'Content-Type: text/plain; charset=utf-8', '', full].join('\r\n');
+    var enc = btoa(unescape(encodeURIComponent(raw))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+    var r = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/drafts', {
       method: 'POST',
       headers: { Authorization: 'Bearer '+token, 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: { raw: enc } })
     });
     if (!r.ok) throw new Error('HTTP '+r.status);
-    setStatus('✅ Rascunho criado no Gmail! Abrindo rascunhos...', 'ok');
-    setTimeout(()=>window.open('https://mail.google.com/mail/u/0/#drafts','_blank'), 800);
+    setStatus('✅ Rascunho criado no Gmail!', 'ok');
+    setTimeout(function(){ window.open('https://mail.google.com/mail/u/0/#drafts','_blank'); }, 800);
   } catch(e) { setStatus('Erro ao criar rascunho: '+e.message, 'err'); }
 }
 
-/* ── UI HELPERS ── */
+function disEi(e, id) {
+  e.stopPropagation();
+  var el = document.getElementById('ei-'+id);
+  if (el) el.classList.add('gone');
+  dismissCount++;
+  document.getElementById('kdis').textContent = dismissCount;
+  document.getElementById('dscr').innerHTML = '<div class="empty"><span style="font-size:32px;opacity:.3">✉</span><p style="font-size:13px">Selecione um item</p></div>';
+  document.getElementById('dtit').textContent = 'Selecione um email';
+  document.getElementById('dsub').textContent = '';
+}
+
+function disEi2(id) { disEi({ stopPropagation: function(){} }, id); }
+
+function filt(btn, cat) {
+  document.querySelectorAll('.flt').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  document.querySelectorAll('#elist .ei').forEach(function(el){
+    if (el.classList.contains('gone')) return;
+    el.style.display = (cat==='all' || el.dataset.cat===cat) ? '' : 'none';
+  });
+}
+
 function setStatus(msg, type) {
-  const b = document.getElementById('sbar');
+  var b = document.getElementById('sbar');
   b.textContent = msg;
   b.className = 'sbar ' + (type||'info');
 }
 
-function dismissEi(e, id) {
-  e.stopPropagation();
-  const el = document.getElementById('ei-'+id);
-  if (el) el.classList.add('gone');
-  dismissCount++;
-  document.getElementById('kdis').textContent = dismissCount;
-  document.getElementById('kp').textContent =
-    document.querySelectorAll('#elist .ei[data-cat="p"]:not(.gone)').length;
-  document.getElementById('dscroll').innerHTML = '<div class="empty"><span style="font-size:32px;opacity:.3">✉</span><p style="font-size:13px">Selecione um item</p></div>';
-  document.getElementById('dtitle').textContent = 'Selecione um email';
-  document.getElementById('dsub').textContent = '';
-}
-
-function filt(btn, cat) {
-  document.querySelectorAll('.flt').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  document.querySelectorAll('#elist .ei').forEach(el=>{
-    if (el.classList.contains('gone')) return;
-    el.style.display = (cat==='all'||el.dataset.cat===cat)?'':'none';
+function initChart() {
+  var ctx = document.getElementById('chart1');
+  if (!ctx) return;
+  chartInst = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Dia 1','Dia 2','Dia 3','Dia 4','Hoje'],
+      datasets: [
+        { label:'Urgente',    data:[0,0,0,0,0], backgroundColor:'#E24B4A', stack:'a', borderWidth:0 },
+        { label:'Atenção',    data:[0,0,0,0,0], backgroundColor:'#EF9F27', stack:'a', borderWidth:0 },
+        { label:'@Mencionado',data:[0,0,0,0,0], backgroundColor:'#7F77DD', stack:'a', borderWidth:0 },
+        { label:'Resolvidos', data:[0,0,0,0,0], backgroundColor:'#1D9E75', stack:'a', borderWidth:0 },
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{
+        x:{ stacked:true, grid:{ display:false }, ticks:{ font:{ size:11 } } },
+        y:{ stacked:true, grid:{ color:'rgba(128,128,128,0.08)' }, ticks:{ font:{ size:11 }, stepSize:1 } }
+      }
+    }
   });
 }
-
-function esc(s) {
-  if (!s) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-
-/* ── CONFIGURAÇÃO API KEY ── */
-function openCfg() {
-  const k = localStorage.getItem('trousseau_claude_key') || '';
-  if (k) { document.getElementById('cfg-key').value = k; }
-  document.getElementById('cfg-overlay').style.display = 'flex';
-}
-function closeCfg() {
-  document.getElementById('cfg-overlay').style.display = 'none';
-}
-function saveCfg() {
-  const key = document.getElementById('cfg-key').value.trim();
-  const gid = document.getElementById('cfg-gmail').value.trim();
-  if (!key || !key.startsWith('sk-ant-')) {
-    alert('Chave inválida. Deve começar com sk-ant-...');
-    return;
-  }
-  localStorage.setItem('trousseau_claude_key', key);
-  if (gid) localStorage.setItem('trousseau_gmail_client', gid);
-  closeCfg();
-  setStatus('✅ Chave salva! Agora conecte o Gmail.', 'ok');
-}
-window.addEventListener('load', function() {
-  const key = localStorage.getItem('trousseau_claude_key');
-  if (!key) {
-    setStatus('⚙️ Configure sua API Key: clique no ícone de engrenagem no canto superior direito.', 'warn');
-  }
-});
-
 </script>
-
-<div class="cfg-overlay" id="cfg-overlay" style="display:none">
-  <div class="cfg-box">
-    <div class="cfg-title">⚙️ Configuração inicial</div>
-    <div class="cfg-sub">Para classificar seus emails com IA, insira sua chave da API Anthropic.<br>Ela fica salva apenas no seu navegador — nunca é enviada para outro lugar.</div>
-    <label class="cfg-label" for="cfg-key">Anthropic API Key</label>
-    <input class="cfg-input" id="cfg-key" type="password" placeholder="sk-ant-api03-..." autocomplete="off" />
-    <label class="cfg-label" style="margin-top:4px">Gmail OAuth Client ID <span style="color:var(--t3);font-weight:400">(já configurado — altere se necessário)</span></label>
-    <input class="cfg-input" id="cfg-gmail" type="text" value="1098352228172-p6sb1411m2qgnoo0dhkbrmfupbqpkthi.apps.googleusercontent.com" />
-    <div class="cfg-row">
-      <button class="btn" onclick="closeCfg()">Cancelar</button>
-      <button class="btn btnp" onclick="saveCfg()">Salvar e continuar</button>
-    </div>
-    <div class="cfg-note">🔒 As chaves ficam salvas no <strong>localStorage</strong> do seu navegador. Para redefinir, clique no ícone ⚙️ no topo do dashboard.</div>
-  </div>
-</div>
-
-
-<div id="cfg-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9999;display:none;align-items:center;justify-content:center">
-  <div style="background:var(--surface);border-radius:12px;border:1px solid var(--border);padding:28px 32px;width:440px;max-width:95vw">
-    <div style="font-size:16px;font-weight:500;margin-bottom:6px">⚙️ Configuração</div>
-    <div style="font-size:12px;color:var(--t2);margin-bottom:20px;line-height:1.5">Insira sua chave da API Anthropic. Ela fica salva apenas no seu navegador.</div>
-    <label style="font-size:12px;font-weight:500;color:var(--t2);margin-bottom:6px;display:block">Anthropic API Key</label>
-    <input id="cfg-key" type="password" placeholder="sk-ant-api03-..." autocomplete="off"
-      style="width:100%;font-size:12px;padding:9px 12px;border:1px solid var(--border2);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;margin-bottom:14px;outline:none;display:block" />
-    <label style="font-size:12px;font-weight:500;color:var(--t2);margin-bottom:6px;display:block">Gmail OAuth Client ID</label>
-    <input id="cfg-gmail" type="text"
-      value="1098352228172-p6sb1411m2qgnoo0dhkbrmfupbqpkthi.apps.googleusercontent.com"
-      style="width:100%;font-size:11px;padding:9px 12px;border:1px solid var(--border2);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;margin-bottom:16px;outline:none;display:block" />
-    <div style="display:flex;gap:8px;justify-content:flex-end">
-      <button onclick="closeCfg()" style="font-size:12px;padding:6px 14px;border:1px solid var(--border2);border-radius:8px;background:transparent;color:var(--t2);cursor:pointer;font-family:inherit">Cancelar</button>
-      <button onclick="saveCfg()" style="font-size:12px;padding:6px 14px;border:none;border-radius:8px;background:var(--text);color:var(--surface);cursor:pointer;font-family:inherit;font-weight:500">Salvar</button>
-    </div>
-    <div style="font-size:11px;color:var(--t3);margin-top:14px;padding:8px 10px;background:var(--s2);border-radius:8px;line-height:1.5">
-      🔒 As chaves ficam salvas apenas no seu navegador (localStorage). Nunca são enviadas para outros servidores.
-    </div>
-  </div>
-</div>
-
 </body>
 </html>
